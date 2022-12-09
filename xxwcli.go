@@ -1,32 +1,32 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+	"github.com/urfave/cli"
 	"os"
 )
 
+var (
+	Name        = "xxwcli"
+	Version     = "v0.0.1"
+	Author      = "xuxiaowei-com-cn/xxwcli: https://github.com/xuxiaowei-com-cn/xxwcli"
+	Email       = "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>"
+	Copyright   = "徐晓伟"
+	Description = "命令行工具"
+)
+
 func main() {
-	http.HandleFunc("/", indexHandler)
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-		log.Printf("Defaulting to port %s", port)
-	}
+	app := &cli.App{}
 
-	log.Printf("Listening on port %s", port)
-	log.Printf("Open http://localhost:%s in the browser", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
-}
+	app.Name = Name
+	app.Version = Version
+	app.Author = Author
+	app.Email = Email
+	app.Copyright = Copyright
+	app.Description = Description
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+	err := (app).Run(os.Args)
+	if err != nil {
 		return
 	}
-	_, err := fmt.Fprint(w, "Hello, World!")
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-	}
+
 }
