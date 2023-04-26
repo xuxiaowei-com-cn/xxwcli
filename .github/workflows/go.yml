@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ "ubuntu-latest", "windows-latest" ]
+        os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -29,6 +29,7 @@ jobs:
           go version
           go mod download
           go build xxwcli.go
+          ls
 
       - uses: actions/upload-artifact@v3
         with:
