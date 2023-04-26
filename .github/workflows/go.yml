@@ -7,9 +7,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  ZIPNAME: "xxwcli"
-
 jobs:
 
   build:
@@ -37,5 +34,5 @@ jobs:
         with:
           name: xxwcli-${{ matrix.os }}.zip
           path: |
-            - xxwcli
-            - xxwcli.exe
+            xxwcli
+            xxwcli.exe
