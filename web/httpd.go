@@ -12,12 +12,12 @@ import (
 func GetHttpdCommand() cli.Command {
 	return cli.Command{
 		Name:  "httpd",
-		Usage: "httpd 代理",
+		Usage: "http 代理",
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  "path",
 				Value: ".",
-				Usage: "指定要提供代理的目录",
+				Usage: "指定提供代理的文件夹",
 			},
 			cli.BoolFlag{
 				Name:  "dir",
