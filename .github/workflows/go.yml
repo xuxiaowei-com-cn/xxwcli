@@ -52,6 +52,7 @@ jobs:
           artifacts: xxwcli-${{ matrix.os }}
           prerelease: true
           name: Release ${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v${{ steps.date.outputs.year_month_day_hour_minute }}
 
       - name: Get current date
         id: date
