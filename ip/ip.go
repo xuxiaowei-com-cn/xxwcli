@@ -2,6 +2,7 @@ package ip
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/urfave/cli"
 	"net"
 	"os"
@@ -25,9 +26,13 @@ func GetIPCommand() cli.Command {
 		Action: func(c *cli.Context) error {
 			addrs, err := net.InterfaceAddrs()
 			if err != nil {
-				fmt.Println(err)
+				red := color.New(color.FgRed).SprintFunc()
+				fmt.Println(red(err))
 				os.Exit(1)
 			}
+
+			green := color.New(color.FgGreen).SprintFunc()
+			blue := color.New(color.FgBlue).SprintFunc()
 
 			ips := make(map[string]bool)
 			for _, addr := range addrs {
@@ -38,7 +43,11 @@ func GetIPCommand() cli.Command {
 					if (c.Bool("v4") && isIPv4) || (c.Bool("v6") && isIPv6) || (!c.Bool("v4") && !c.Bool("v6")) {
 						if _, ok := ips[ipnet.IP.String()]; !ok {
 							ips[ipnet.IP.String()] = true
-							fmt.Println(ipnet.IP.String())
+							if isIPv4 {
+								fmt.Println(green(ipnet.IP.String()))
+							} else {
+								fmt.Println(blue(ipnet.IP.String()))
+							}
 						}
 					}
 				}

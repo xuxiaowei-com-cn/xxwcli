@@ -4,6 +4,7 @@
 
 ```shell
 go get github.com/urfave/cli
+go get github.com/fatih/color
 ```
 
 ## run
