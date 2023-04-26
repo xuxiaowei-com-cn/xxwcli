@@ -31,6 +31,16 @@ func main() {
 		{
 			Name:  "ip",
 			Usage: "获取当前计算机的 IP 地址",
+			Flags: []cli.Flag{
+				&cli.BoolFlag{
+					Name:  "v4",
+					Usage: "仅显示 IPv4 地址",
+				},
+				&cli.BoolFlag{
+					Name:  "v6",
+					Usage: "仅显示 IPv6 地址",
+				},
+			},
 			Action: func(c *cli.Context) error {
 				addrs, err := net.InterfaceAddrs()
 				if err != nil {
@@ -39,47 +49,13 @@ func main() {
 				}
 				for _, addr := range addrs {
 					if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-						if ipnet.IP.To4() != nil {
+						if c.Bool("v4") && ipnet.IP.To4() != nil {
 							fmt.Println(ipnet.IP.String())
-						} else if ipnet.IP.To16() != nil {
+						} else if c.Bool("v6") && ipnet.IP.To16() != nil && ipnet.IP.To4() == nil {
+							fmt.Println(ipnet.IP.String())
+						} else if !c.Bool("v4") && !c.Bool("v6") {
 							fmt.Println(ipnet.IP.String())
 						}
-					}
-				}
-				return nil
-			},
-		},
-
-		{
-			Name:  "ipv4",
-			Usage: "获取当前计算机的 IPv4 地址",
-			Action: func(c *cli.Context) error {
-				addrs, err := net.InterfaceAddrs()
-				if err != nil {
-					fmt.Println(err)
-					os.Exit(1)
-				}
-				for _, addr := range addrs {
-					if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To4() != nil {
-						fmt.Println(ipnet.IP.String())
-					}
-				}
-				return nil
-			},
-		},
-
-		{
-			Name:  "ipv6",
-			Usage: "获取当前计算机的 IPv6 地址",
-			Action: func(c *cli.Context) error {
-				addrs, err := net.InterfaceAddrs()
-				if err != nil {
-					fmt.Println(err)
-					os.Exit(1)
-				}
-				for _, addr := range addrs {
-					if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To16() != nil && ipnet.IP.To4() == nil {
-						fmt.Println(ipnet.IP.String())
 					}
 				}
 				return nil
