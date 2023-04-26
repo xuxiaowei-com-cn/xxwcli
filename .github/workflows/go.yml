@@ -31,11 +31,7 @@ jobs:
         run: |
           go version
           go mod download
-          if [[ "${{ matrix.os }}" = "windows-latest" ]]; then
-            go build -o xxwcli.exe xxwcli.go
-          else
-            go build xxwcli.go
-          fi
+          go build xxwcli.go
 
       - uses: actions/upload-artifact@v3
         with:
