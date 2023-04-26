@@ -1,8 +1,20 @@
 # xxwcli 命令行工具
 
+## get
+
+```shell
+go get github.com/urfave/cli
+```
+
+## run
+
+```shell
+go run xxwcli.go
+```
+
 ## build
 
-```
+```shell
 go build xxwcli.go
 ```
 
