@@ -45,7 +45,8 @@ jobs:
         id: os
         # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
-          echo "os=$( matrix.os%-latest )" >> $GITHUB_OUTPUT
+          os=matrix.os
+          echo "os=$( os%-latest )" >> $GITHUB_OUTPUT
 
       - name: Get current date
         id: date
