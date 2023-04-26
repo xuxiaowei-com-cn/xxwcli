@@ -35,5 +35,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xxwcli.zip
-          path: xxwcli,xxwcli.exe
+          name: xxwcli-${{ matrix.os }}.zip
+          path: |
+            - xxwcli
+            - xxwcli.exe
