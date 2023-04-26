@@ -26,6 +26,7 @@ jobs:
 
       - name: Build
         run: |
+          go version
           go mod download
           go build xxwcli.go
           ls
