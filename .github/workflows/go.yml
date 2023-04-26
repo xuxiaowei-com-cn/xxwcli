@@ -43,6 +43,7 @@ jobs:
 
       - name: Replace String Action
         uses: frabert/replace-string-action@v2
+        id: replace
         with:
           pattern: '/(\w+)-/'
           string: ${{ matrix.os }}
@@ -53,6 +54,7 @@ jobs:
         # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
           echo $1
+          echo ${{ steps.replace.outputs.value }}
           if [[ ${{ runner.os }} == 'Windows' ]]; then 
             echo 'windows'; 
           elif [[ ${{ runner.os }} == 'Linux' ]]; 
