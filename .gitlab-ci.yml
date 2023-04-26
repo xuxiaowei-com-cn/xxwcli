@@ -15,9 +15,9 @@ build:1.20:
   only:
     - main
 
-build:1.20:macos:
+build:latest:macos:
   stage: build
-  image: golang:1.20
+  image: golang:latest
   script:
     - go env -w GOPROXY=https://goproxy.cn,direct
     - go mod download
