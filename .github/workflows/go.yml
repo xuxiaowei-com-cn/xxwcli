@@ -43,7 +43,7 @@ jobs:
 
       - name: Set OS variable
         id: os
-        run: echo "::set-output name=name::$( matrix.os/-latest/ )"
+        run: echo "::set-output name=name::$(matrix.os/-latest/)"
 
       - name: Get current date
         id: date
