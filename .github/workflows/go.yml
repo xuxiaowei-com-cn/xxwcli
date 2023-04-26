@@ -49,7 +49,6 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: xxwcli-${{ matrix.os }}
           prerelease: true
           name: Release ${{ steps.date.outputs.year_month_day_hour_minute }}
           tag: v${{ steps.date.outputs.year_month_day_hour_minute }}
