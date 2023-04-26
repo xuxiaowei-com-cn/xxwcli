@@ -41,17 +41,17 @@ jobs:
           go build xxwcli.go
           ls
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: xxwcli-${{ matrix.os }}
-          path: |
-            xxwcli
-            xxwcli.exe
-
       - name: Get current date
         id: date
         run: |
           echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xxwcli-${{ runner.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          path: |
+            xxwcli
+            xxwcli.exe
 
       - name: Create Release
         uses: ncipollo/release-action@v1
@@ -60,6 +60,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ runner.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v${{ runner.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
