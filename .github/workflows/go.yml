@@ -52,7 +52,7 @@ jobs:
           echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
 
       - name: Create Release
-        uses: ncipollo/release-action@v2.3.5
+        uses: ncipollo/release-action@v1
         with:
           artifacts: xxwcli-${{ matrix.os }}
           prerelease: true
