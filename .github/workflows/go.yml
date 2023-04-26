@@ -60,6 +60,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: Release ${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
