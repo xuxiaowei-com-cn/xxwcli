@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ matrix.os.split('-')[0] }}
+          name: xxwcli-${matrix.os/-latest/}
           path: |
             xxwcli
             xxwcli.exe
