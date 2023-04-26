@@ -7,6 +7,9 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  ZIPNAME: "xxwcli"
+
 jobs:
 
   build:
@@ -29,4 +32,23 @@ jobs:
           go version
           go mod download
           go build xxwcli.go
-          ls
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.6
+        with:
+          tag_name: ${{ format('{0}', github.event.head_commit.timestamp) }}
+          release_name: Release ${{ format('{0}', github.event.head_commit.timestamp) }}
+          body: |
+            Automated Release
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          asset_path:
+            - xxwcli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
