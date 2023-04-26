@@ -44,7 +44,7 @@ jobs:
       - name: Set OS variable
         id: os
         run: |
-          echo "os=${ matrix.os/-latest/ }" >> $GITHUB_OUTPUT
+          echo "os=${ matrix.os%-latest }" >> $GITHUB_OUTPUT
 
       - name: Get current date
         id: date
