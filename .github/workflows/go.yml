@@ -41,13 +41,15 @@ jobs:
           go build xxwcli.go
           ls
 
-      - name: Set OS variable
-        id: os
+      - name: Replace String Action
         uses: frabert/replace-string-action@v2
         with:
           pattern: '/(\w+)-/'
           string: ${{ matrix.os }}
           replace-with: 'I greet you, $1!'
+
+      - name: Set OS variable
+        id: os
         # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
           echo $1
