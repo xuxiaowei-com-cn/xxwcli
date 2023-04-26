@@ -43,11 +43,13 @@ jobs:
 
       - name: Set OS variable
         id: os
+        # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
-          echo "os=${ matrix.os%-latest }" >> $GITHUB_OUTPUT
+          echo "os=$( matrix.os%-latest )" >> $GITHUB_OUTPUT
 
       - name: Get current date
         id: date
+        # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
           echo "year_month_day=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
           echo "year_month_day_hour=$(date +'%Y%m%d%H')" >> $GITHUB_OUTPUT
