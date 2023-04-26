@@ -31,7 +31,7 @@ jobs:
         run: |
           go version
           go mod download
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          if [[ "${{ matrix.os }}" = "windows-latest" ]]; then
             go build -o xxwcli.exe xxwcli.go
           else
             go build xxwcli.go
