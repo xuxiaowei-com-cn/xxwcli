@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"github.com/xuxiaowei-com-cn/xxwcli/ip"
+	"github.com/xuxiaowei-com-cn/xxwcli/web"
 	"os"
 
 	"github.com/urfave/cli"
@@ -30,6 +31,7 @@ func main() {
 
 	app.Commands = []cli.Command{
 		ip.GetIPCommand(),
+		web.GetHttpdCommand(),
 	}
 
 	err := app.Run(os.Args)

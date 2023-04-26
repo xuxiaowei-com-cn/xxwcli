@@ -7,6 +7,12 @@ go get github.com/urfave/cli
 go get github.com/fatih/color
 ```
 
+## mod
+
+```shell
+go mod download
+```
+
 ## run
 
 ```shell
