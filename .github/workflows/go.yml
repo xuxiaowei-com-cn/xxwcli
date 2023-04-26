@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ "ubuntu-latest" ]
+        os: [ "ubuntu-latest", "windows-latest" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -31,9 +31,13 @@ jobs:
         run: |
           go version
           go mod download
-          go build xxwcli.go
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            go build -o xxwcli.exe xxwcli.go
+          else
+            go build xxwcli.go
+          fi
 
       - uses: actions/upload-artifact@v3
         with:
           name: xxwcli.zip
-          path: xxwcli
+          path: xxwcli,xxwcli.exe
