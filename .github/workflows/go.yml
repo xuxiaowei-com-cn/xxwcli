@@ -44,14 +44,14 @@ jobs:
 #      - name: Set OS variable
 #        id: os
 #        run: |
-#          echo "os=matrix.os" >> $GITHUB_STATE
+#          echo "os=matrix.os" >> $GITHUB_OUTPUT
 
       - name: Get current date
         id: date
         run: |
-          echo "year_month_day=$(date +'%Y%m%d')" >> $GITHUB_STATE
-          echo "year_month_day_hour=$(date +'%Y%m%d%H')" >> $GITHUB_STATE
-          echo "year_month_day_hour_minute=$(date +'%Y%m%d%H%M')" >> $GITHUB_STATE
+          echo "year_month_day=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+          echo "year_month_day_hour=$(date +'%Y%m%d%H')" >> $GITHUB_OUTPUT
+          echo "year_month_day_hour_minute=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
 
       - uses: actions/upload-artifact@v3
         with:
