@@ -46,14 +46,14 @@ jobs:
             xxwcli
             xxwcli.exe
 
-      - name: Get current date
-        id: date
-        run: |
-          echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
-
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: xxwcli-${{ matrix.os }}
           prerelease: true
           name: Release ${{ steps.date.outputs.year_month_day_hour_minute }}
+
+      - name: Get current date
+        id: date
+        run: |
+          echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
