@@ -45,26 +45,17 @@ jobs:
         uses: frabert/replace-string-action@v2
         id: replace
         with:
-          pattern: '/(\w+)-/'
+          pattern: '-latest$'
           string: ${{ matrix.os }}
-          replace-with: 'I greet you, $1!'
+          replace-with: ''
 
       - name: Set OS variable
         id: os
-        # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         run: |
-          aa="ubuntu-latest"
-          echo $aa
-          echo $aa.replace("-latest", '')
-          echo $1
-          echo ${{ steps.replace.replace-with }}
-          if [[ ${{ runner.os }} == 'Windows' ]]; then 
-            echo 'windows'; 
-          elif [[ ${{ runner.os }} == 'Linux' ]]; 
-            then echo 'ubuntu'; 
-          else 
-            echo 'macos';
-          fi
+          echo "OS=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
+          echo "OS: ${{ steps.replace.outputs.replaced }}"
+
+      
 
       - name: Get current date
         id: date
