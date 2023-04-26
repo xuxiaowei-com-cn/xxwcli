@@ -53,6 +53,8 @@ jobs:
           prerelease: true
           name: Release ${{ steps.date.outputs.year_month_day_hour_minute }}
           tag: v${{ steps.date.outputs.year_month_day_hour_minute }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get current date
         id: date
