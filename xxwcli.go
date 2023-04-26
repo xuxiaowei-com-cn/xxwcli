@@ -47,14 +47,18 @@ func main() {
 					fmt.Println(err)
 					os.Exit(1)
 				}
+
+				ips := make(map[string]bool)
 				for _, addr := range addrs {
 					if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-						if c.Bool("v4") && ipnet.IP.To4() != nil {
-							fmt.Println(ipnet.IP.String())
-						} else if c.Bool("v6") && ipnet.IP.To16() != nil && ipnet.IP.To4() == nil {
-							fmt.Println(ipnet.IP.String())
-						} else if !c.Bool("v4") && !c.Bool("v6") {
-							fmt.Println(ipnet.IP.String())
+						var isIPv4 = ipnet.IP.To4() != nil
+						var isIPv6 = ipnet.IP.To16() != nil && ipnet.IP.To4() == nil
+
+						if (c.Bool("v4") && isIPv4) || (c.Bool("v6") && isIPv6) || (!c.Bool("v4") && !c.Bool("v6")) {
+							if _, ok := ips[ipnet.IP.String()]; !ok {
+								ips[ipnet.IP.String()] = true
+								fmt.Println(ipnet.IP.String())
+							}
 						}
 					}
 				}
