@@ -55,7 +55,7 @@ jobs:
         # echo "os=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
         # echo "os: ${{ steps.replace.outputs.replaced }}"
         run: |
-          echo "::set-output name=os::$(steps.replace.outputs.replaced)"
+          echo "::set-output name=os::${{ steps.replace.outputs.replaced }}"
           echo "os: ${{ steps.replace.outputs.replaced }}"
 
       - name: Get current date
