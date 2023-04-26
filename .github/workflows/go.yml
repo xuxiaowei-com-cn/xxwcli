@@ -42,7 +42,7 @@ jobs:
           ls
 
       - name: Set OS variable
-        run: echo "::set-output name=os::$({matrix.os/-latest/})"
+        run: echo "::set-output name=os::${{ matrix.os/-latest/ }}"
         id: set_os
 
       - name: Get current date
