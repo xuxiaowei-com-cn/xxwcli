@@ -33,10 +33,7 @@ jobs:
           go mod download
           go build xxwcli.go
 
-      - name: Create Archive
-        run: zip -q -r ${{ env.xxwcli }} ${{ env.xxwcli }}
-        shell: bash
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.xxwcli }}
-          path: ${{ env.xxwcli }}
+          name: xxwcli
+          path: xxwcli
