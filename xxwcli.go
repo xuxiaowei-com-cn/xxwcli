@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/xuxiaowei-com-cn/xxwcli/ip"
 	"os"
 
@@ -33,7 +34,8 @@ func main() {
 
 	err := app.Run(os.Args)
 	if err != nil {
-		fmt.Println(err)
+		red := color.New(color.FgRed).SprintFunc()
+		fmt.Println(red(err))
 		os.Exit(1)
 	}
 }
