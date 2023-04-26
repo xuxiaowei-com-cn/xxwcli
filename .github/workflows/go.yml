@@ -41,10 +41,10 @@ jobs:
           go build xxwcli.go
           ls
 
-#      - name: Set OS variable
-#        id: os
-#        run: |
-#          echo "os=matrix.os" >> $GITHUB_OUTPUT
+      - name: Set OS variable
+        id: os
+        run: |
+          echo "os=${ matrix.os/-latest/ }" >> $GITHUB_OUTPUT
 
       - name: Get current date
         id: date
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: xxwcli-${{ steps.os.outputs.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           path: |
             xxwcli
             xxwcli.exe
@@ -67,6 +67,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v-${{ matrix.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ steps.os.outputs.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v-${{ steps.os.outputs.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
