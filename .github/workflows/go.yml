@@ -51,19 +51,23 @@ jobs:
 
       - name: Set OS variable
         id: os
+        # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+        # echo "os=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
+        # echo "os: ${{ steps.replace.outputs.replaced }}"
         run: |
-          echo "os=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
+          echo "::set-output name=os::$(steps.replace.outputs.replaced)"
           echo "os: ${{ steps.replace.outputs.replaced }}"
-
-      
 
       - name: Get current date
         id: date
         # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+        # echo "year_month_day=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        # echo "year_month_day_hour=$(date +'%Y%m%d%H')" >> $GITHUB_OUTPUT
+        # echo "year_month_day_hour_minute=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
         run: |
-          echo "year_month_day=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
-          echo "year_month_day_hour=$(date +'%Y%m%d%H')" >> $GITHUB_OUTPUT
-          echo "year_month_day_hour_minute=$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+          echo "::set-output name=year_month_day::$(date +'%Y%m%d')"
+          echo "::set-output name=year_month_day_hour::$(date +'%Y%m%d%H')"
+          echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
 
       - uses: actions/upload-artifact@v3
         with:
