@@ -120,9 +120,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            macos/xxwcli
-            ubuntu/xxwcli
-            windows/xxwcli.exe
+            xxwcli
+            xxwcli.exe
           body:
             自动推送时的发布
           # draft: 草稿状态，为 true 时，不创建标签，默认为 false
