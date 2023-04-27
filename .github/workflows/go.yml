@@ -71,9 +71,10 @@ jobs:
         # bash, sh, cmd, powershell, pwsh
         shell: sh
         run: |
-          echo "YEAR_MONTH_DAY=$(date +'%Y%m%d')" >> $GITHUB_ENV
-          echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y%m%d%H')" >> $GITHUB_ENV
-          echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV
+          # 解析时间戳并转换为 UTC 时间
+          echo "YEAR_MONTH_DAY=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dZ")" >> $GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dT%HZ")" >> $GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dT%H:%MZ")" >> $GITHUB_ENV
         env:
           # 设置时区：支持 ubuntu、macos
           TZ: Asia/Shanghai
@@ -81,7 +82,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ env.OS }}-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
           path: |
             xxwcli
             xxwcli.exe
@@ -93,6 +94,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ env.OS }}-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
-          tag: v-${{ env.OS }}-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
+          tag: v-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
           token: ${{ secrets.GITHUB_TOKEN }}
