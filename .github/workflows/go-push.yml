@@ -59,7 +59,7 @@ jobs:
         # $env:GITHUB_ENV：仅支持 windows
         shell: sh
         run: |
-          os=${{ matrix.os.replace('-latest', '') }}
+          os=${{ matrix.os#-latest }}
           echo "OS=$os" >> $GITHUB_ENV
 
       - name: Get current date
@@ -94,6 +94,5 @@ jobs:
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
           prerelease: true
-          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
-          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
+          name: ${{ github.ref }}-${{ env.OS }}
           token: ${{ secrets.GITHUB_TOKEN }}
