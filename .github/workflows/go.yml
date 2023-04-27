@@ -88,7 +88,6 @@ jobs:
           
           console.log(`CURRENT_TIME=${current_time}`);
           console.log(`TIME_PLUS_8H=${time_plus_8h}`);
-        shell: bash
         env:
           node-version: '14.x'
 
