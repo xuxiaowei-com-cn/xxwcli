@@ -86,7 +86,7 @@ jobs:
       - name: Format time
         id: format_time
         run: |
-          const moment = require('moment-timezone');
+          import moment from 'moment-timezone'
           const tz = process.env.TIME_ZONE;
           const timeFormat = 'YYYYMMDDHHmm';
           const time = moment().tz(tz).format(timeFormat);
