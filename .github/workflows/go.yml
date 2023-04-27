@@ -67,10 +67,11 @@ jobs:
           echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
       - name: Test script
-        shell: script
+        # bash, sh, cmd, powershell, pwsh
+        shell: sh
         run: |
-          const now = new Date()
-          console.log(now)
+          now=$(date +%s)
+          echo $now
 
       - name: Get current date
         id: date
