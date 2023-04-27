@@ -5,7 +5,7 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ]
 
 jobs:
 
@@ -61,6 +61,8 @@ jobs:
         run: |
           echo "::set-output name=os::${{ steps.replace.outputs.replaced }}"
           echo "os: ${{ steps.replace.outputs.replaced }}"
+          echo "os2=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
+          echo "os3=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
       - name: Get current date
         id: date
@@ -89,6 +91,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ steps.os.outputs.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v-${{ steps.os.outputs.os }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ steps.os.outputs.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v-${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ steps.os.outputs.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
