@@ -28,32 +28,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set Up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14.x'
-
       - name: Format Time
         id: format_time
         run: |
-          node -e "console.log(new Date().toLocaleString())"
-          // 获取当前时间
-          node -e "const now = new Date()"
-          // 获取当前时间加8小时后的时间
-          node -e "const time_plus_8h = new Date(now.getTime() + 8 * 60 * 60 * 1000)"
-          // 将当前时间格式化为YYYYMMDDHHmm的字符串
-          node -e "const now_str = now.toISOString().replace(/-|:|\.\d+/g, '')"
-          // 将当前时间加8小时后的时间格式化为YYYYMMDDHHmm的字符串
-          node -e "const time_plus_8h_str = time_plus_8h.toISOString().replace(/-|:|\.\d+/g, '')"
-          
-          node -e "console.log(`CURRENT_TIME=${now_str}`)"
-          node -e "console.log(`TIME_PLUS_8H=${time_plus_8h_str}`)"
+          now=$(date +%s)
+          current_time_str=$(date -d @$now +'%Y%m%d%H%M')
+          time_plus_8h_str=$(date -d @$((now+28800)) +"%Y%m%d%H%M")
           
           # 设置环境变量：支持 ubuntu、macos
-          echo "export CURRENT_TIME=$now_str" >> $GITHUB_ENV
+          echo "export CURRENT_TIME=$current_time_str" >> $GITHUB_ENV
           echo "export TIME_PLUS_8H=$time_plus_8h_str" >> $GITHUB_ENV
           # 设置环境变量：支持 windows
-          echo "export CURRENT_TIME=$now_str" >> $env:GITHUB_ENV
+          echo "export CURRENT_TIME=$current_time_str" >> $env:GITHUB_ENV
           echo "export TIME_PLUS_8H=$time_plus_8h_str" >> $env:GITHUB_ENV
 
       - name: Set up Go
