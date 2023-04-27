@@ -69,7 +69,8 @@ jobs:
       - name: Get current date
         id: date
         # bash, sh, cmd, powershell, pwsh
-        shell: sh
+        # 注释 shell 类型，复现 windows 环境问题
+        # shell: sh
         run: |
           echo "YEAR_MONTH_DAY=$(date +'%Y-%m-%dZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
