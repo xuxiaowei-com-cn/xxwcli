@@ -113,6 +113,10 @@ jobs:
           name: xxwcli-macos
           path: macos/xxwcli
 
+      - name: ls
+        run:
+          ls
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
