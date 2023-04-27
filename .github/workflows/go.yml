@@ -28,20 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Format Time
-        id: format_time
-        run: |
-          now=$(date +%s)
-          current_time_str=$(date -d @$now +'%Y%m%d%H%M')
-          time_plus_8h_str=$(date -d @$((now+28800)) +"%Y%m%d%H%M")
-          
-          # 设置环境变量：支持 ubuntu、macos
-          echo "export CURRENT_TIME=$current_time_str" >> $GITHUB_ENV
-          echo "export TIME_PLUS_8H=$time_plus_8h_str" >> $GITHUB_ENV
-          # 设置环境变量：支持 windows
-          echo "export CURRENT_TIME=$current_time_str" >> $env:GITHUB_ENV
-          echo "export TIME_PLUS_8H=$time_plus_8h_str" >> $env:GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v4
         id: set-up-go
@@ -96,7 +82,8 @@ jobs:
           # 设置时区：支持 ubuntu、macos
           TZ: Asia/Shanghai
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: xxwcli-${{ env.OS }}-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
           path: |
