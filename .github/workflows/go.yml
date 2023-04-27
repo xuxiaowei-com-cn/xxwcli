@@ -28,16 +28,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+
       - name: Format Time
         id: format_time
         run: |
-          const now = new Date() // 获取当前时间
-          const time_plus_8h = new Date(now.getTime() + 8 * 60 * 60 * 1000) // 获取当前时间加8小时后的时间
-          const now_str = now.toISOString().replace(/-|:|\.\d+/g, '') // 将当前时间格式化为YYYYMMDDHHmm的字符串
-          const time_plus_8h_str = time_plus_8h.toISOString().replace(/-|:|\.\d+/g, '') // 将当前时间加8小时后的时间格式化为YYYYMMDDHHmm的字符串
+          // 获取当前时间
+          node -e "const now = new Date()"
+          // 获取当前时间加8小时后的时间
+          node -e "const time_plus_8h = new Date(now.getTime() + 8 * 60 * 60 * 1000)"
+          // 将当前时间格式化为YYYYMMDDHHmm的字符串
+          node -e "const now_str = now.toISOString().replace(/-|:|\.\d+/g, '')"
+          // 将当前时间加8小时后的时间格式化为YYYYMMDDHHmm的字符串
+          node -e "const time_plus_8h_str = time_plus_8h.toISOString().replace(/-|:|\.\d+/g, '')"
           
-          console.log(`CURRENT_TIME=${now_str}`);
-          console.log(`TIME_PLUS_8H=${time_plus_8h_str}`);
+          node -e "console.log(`CURRENT_TIME=${now_str}`)"
+          node -e "console.log(`TIME_PLUS_8H=${time_plus_8h_str}`)"
           
           # 设置环境变量：支持 ubuntu、macos
           echo "export CURRENT_TIME=$now_str" >> $GITHUB_ENV
