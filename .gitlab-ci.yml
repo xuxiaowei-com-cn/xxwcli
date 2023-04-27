@@ -5,6 +5,7 @@ build:1.20:
   stage: build
   image: golang:1.20
   script:
+    - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
     - go mod download
     - go build xxwcli.go
@@ -19,6 +20,7 @@ build:latest:macos:
   stage: build
   image: golang:latest
   script:
+    - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
     - go mod download
     - go build xxwcli.go
@@ -36,6 +38,7 @@ build:1.20-windowsservercore-ltsc2022:
   stage: build
   image: golang:1.20-windowsservercore-ltsc2022
   script:
+    - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
     - go mod download
     - go build xxwcli.go
