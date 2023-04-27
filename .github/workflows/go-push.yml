@@ -59,8 +59,7 @@ jobs:
         # $env:GITHUB_ENV：仅支持 windows
         shell: sh
         run: |
-          os=${{ matrix.os }}
-          os=${{ os.replace('-latest', '') }}
+          os=${{ matrix.os.replace('-latest', '') }}
           echo "OS=$os" >> $GITHUB_ENV
 
       - name: Get current date
