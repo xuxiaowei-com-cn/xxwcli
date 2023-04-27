@@ -63,7 +63,7 @@ jobs:
           echo "os: ${{ steps.replace.outputs.replaced }}"
           echo "os2=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
           echo "os3=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
-          echo "export OS4=steps.replace.outputs.replaced" >> $GITHUB_ENV
+          echo "export OS4=${{ steps.replace.outputs.replaced }}" >> $GITHUB_ENV
 
       - name: Get current date
         id: date
