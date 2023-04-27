@@ -67,6 +67,20 @@ jobs:
           # 设置环境变量：支持 windows
           echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: xxwcli-${{ env.OS }}
+          path: |
+            xxwcli
+            xxwcli.exe
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    # if: startsWith(github.ref, 'refs/heads/main')
+    steps:
+
       - name: Get current date
         id: date
         # bash, sh, cmd, powershell, pwsh
@@ -79,35 +93,31 @@ jobs:
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    # if: startsWith(github.ref, 'refs/heads/main')
-    steps:
-      - name: Download Artifacts
+      - name: Download Artifacts ubuntu
         uses: actions/download-artifact@v3
         with:
-          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-ubuntu-latest
-          path: build
+          name: xxwcli-ubuntu-latest
+          path: ubuntu/xxwcli
 
-      - name: Upload Artifact
+      - name: Download Artifacts windows
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-windows-latest
-          path: build/xxwcli.exe
+          name: xxwcli-windows-latest
+          path: windows/xxwcli.exe
 
-      - name: Upload Artifact
+      - name: Download Artifacts macos
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-macos-latest
-          path: build/xxwcli
+          name: xxwcli-macos-latest
+          path: macos/xxwcli
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            xxwcli
-            xxwcli.exe
+            macos/xxwcli
+            ubuntu/xxwcli
+            windows/xxwcli.exe
           body:
             自动推送时的发布
           # draft: 草稿状态，为 true 时，不创建标签，默认为 false
