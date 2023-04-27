@@ -13,6 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
+    env:
+      CACHE_PATH: ~/go/pkg/mod/cache
 
     strategy:
       matrix:
@@ -23,13 +25,15 @@ jobs:
 
       - name: Set up Go
         uses: actions/setup-go@v4
+        id: set-up-go
         with:
           go-version: 1.19
 
       - name: Cache Go modules
         uses: actions/cache@v3
+        id: cache-modules
         with:
-          path: ~/go/pkg/mod/cache
+          path: ${{ env.CACHE_PATH }}
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
@@ -68,6 +72,8 @@ jobs:
           echo "::set-output name=year_month_day::$(date +'%Y%m%d')"
           echo "::set-output name=year_month_day_hour::$(date +'%Y%m%d%H')"
           echo "::set-output name=year_month_day_hour_minute::$(date +'%Y%m%d%H%M')"
+        env:
+          TZ: Asia/Shanghai
 
       - uses: actions/upload-artifact@v3
         with:
