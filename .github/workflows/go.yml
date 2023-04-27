@@ -36,6 +36,7 @@ jobs:
       - name: Format Time
         id: format_time
         run: |
+          node -e "console.log(new Date().toLocaleString())"
           // 获取当前时间
           node -e "const now = new Date()"
           // 获取当前时间加8小时后的时间
