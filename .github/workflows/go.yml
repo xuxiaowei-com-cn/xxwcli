@@ -78,6 +78,11 @@ jobs:
           CURRENT_TIME: ${{ steps.format_time.outputs.time }}
           TIME_PLUS_8H: ${{ steps.format_time.outputs.time_plus_8h }}
 
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
       - name: Format time
         id: format_time
         run: |
