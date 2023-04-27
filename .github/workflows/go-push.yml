@@ -96,19 +96,19 @@ jobs:
       - name: Download Artifacts ubuntu
         uses: actions/download-artifact@v3
         with:
-          name: xxwcli-ubuntu-latest
+          name: xxwcli-ubuntu
           path: ubuntu/xxwcli
 
       - name: Download Artifacts windows
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-windows-latest
+          name: xxwcli-windows
           path: windows/xxwcli.exe
 
       - name: Download Artifacts macos
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-macos-latest
+          name: xxwcli-macos
           path: macos/xxwcli
 
       - name: Create Release
