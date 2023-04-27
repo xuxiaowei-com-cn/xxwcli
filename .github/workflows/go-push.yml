@@ -85,7 +85,7 @@ jobs:
     # if: startsWith(github.ref, 'refs/heads/main')
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-ubuntu-latest
           path: build
