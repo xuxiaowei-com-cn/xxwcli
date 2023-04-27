@@ -91,6 +91,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ steps.os.outputs.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v-${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ steps.os.outputs.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v-${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
