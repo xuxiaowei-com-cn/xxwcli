@@ -95,7 +95,7 @@ jobs:
             xxwcli.exe
           body:
             自动推送时的发布
-          # draft: 为 true 时，不创建标签，默认为 false
+          # draft: 草稿状态，为 true 时，不创建标签，默认为 false
           # draft: true
           prerelease: true
           name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
