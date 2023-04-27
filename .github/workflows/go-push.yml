@@ -113,12 +113,20 @@ jobs:
           name: xxwcli-macos
           path: macos
 
+      - name: ls
+        run: |
+          pwd
+          ls /home/runner/work/xxwcli/xxwcli/macos
+          ls /home/runner/work/xxwcli/xxwcli/ubuntu
+          ls /home/runner/work/xxwcli/xxwcli/windows
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            xxwcli
-            xxwcli.exe
+            /home/runner/work/xxwcli/xxwcli/macos
+            /home/runner/work/xxwcli/xxwcli/ubuntu
+            /home/runner/work/xxwcli/xxwcli/windows
           body:
             自动推送时的发布
           # draft: 草稿状态，为 true 时，不创建标签，默认为 false
