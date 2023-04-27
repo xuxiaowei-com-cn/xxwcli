@@ -60,7 +60,7 @@ jobs:
         shell: sh
         run: |
           os=${{ matrix.os }}
-          os=${{ os#-latest }}
+          os=${{ os.replace('-latest', '') }}
           echo "OS=$os" >> $GITHUB_ENV
 
       - name: Get current date
