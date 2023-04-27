@@ -34,9 +34,9 @@ build:1.20:
 #  rules:
 #    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'jihulab.com'
 
-build:1.20.3-windowsservercore:
+build:windowsservercore-1809:
   stage: build
-  image: golang:1.20.3-windowsservercore
+  image: golang:windowsservercore-1809
   script:
     - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
