@@ -97,6 +97,7 @@ jobs:
         shell: bash
         env:
           NODE_VERSION: 14.x
+          DISPLAY: :0.0
 
       - name: Set output variables
         run: |
