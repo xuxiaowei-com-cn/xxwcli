@@ -98,7 +98,6 @@ jobs:
           # draft: 草稿状态，为 true 时，不创建标签，默认为 false
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
-          draft: true
           prerelease: true
           name: ${{ github.ref }}-${{ env.OS }}
           token: ${{ secrets.GITHUB_TOKEN }}
