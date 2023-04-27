@@ -66,43 +66,40 @@ jobs:
           # 设置环境变量：支持 windows
           echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
-      - name: Show current time
-        run: |
-          echo "Current time:"
-          echo "${{ env.GITHUB_SERVER_TIMEZONE }}"
-          echo "${{ env.CURRENT_TIME }}"
-          echo "Current time plus 8 hours:"
-          echo "${{ env.TIME_PLUS_8H }}"
-        env:
-          TIME_ZONE: ${{ env.GITHUB_SERVER_TIMEZONE }}
-          CURRENT_TIME: ${{ steps.format_time.outputs.time }}
-          TIME_PLUS_8H: ${{ steps.format_time.outputs.time_plus_8h }}
-
       - name: Set Up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14.x'
 
-      - name: Format time
+      - name: Format Time
         id: format_time
         run: |
-          npm i moment-timezone
-          import moment from 'moment-timezone'
-          const tz = process.env.TIME_ZONE;
-          const timeFormat = 'YYYYMMDDHHmm';
-          const time = moment().tz(tz).format(timeFormat);
-          const time_plus_8h = moment().tz(tz).add(8, 'hours').format(timeFormat);
-          console.log(`CURRENT_TIME=${time}`);
+          # 获取当前时间
+          const now = new Date();
+          
+          # 增加 8 小时
+          const eightHoursLater = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+          
+          # 格式化为 YYYYMMDDHHmm
+          const current_time = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+          
+          # 格式化为 YYYYMMDDHHmm
+          const time_plus_8h = `${eightHoursLater.getFullYear()}${String(eightHoursLater.getMonth() + 1).padStart(2, '0')}${String(eightHoursLater.getDate()).padStart(2, '0')}${String(eightHoursLater.getHours()).padStart(2, '0')}${String(eightHoursLater.getMinutes()).padStart(2, '0')}`;
+          
+          console.log(`CURRENT_TIME=${current_time}`);
           console.log(`TIME_PLUS_8H=${time_plus_8h}`);
         shell: bash
         env:
-          NODE_VERSION: 14.x
-          DISPLAY: :0.0
+          node-version: '14.x'
 
       - name: Set output variables
         run: |
-          echo "${{ env.CURRENT_TIME }}" >> $GITHUB_ENV
-          echo "${{ env.TIME_PLUS_8H }}" >> $GITHUB_ENV
+          # 设置环境变量：支持 ubuntu、macos
+          echo "export CURRENT_TIME=$current_time" >> $GITHUB_ENV
+          echo "export TIME_PLUS_8H=$time_plus_8h" >> $GITHUB_ENV
+          # 设置环境变量：支持 windows
+          echo "export CURRENT_TIME=$current_time" >> $env:GITHUB_ENV
+          echo "export TIME_PLUS_8H=$time_plus_8h" >> $env:GITHUB_ENV
 
       - name: Get current date
         id: date
