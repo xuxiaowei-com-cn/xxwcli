@@ -113,13 +113,19 @@ jobs:
           name: xxwcli-macos
           path: macos
 
+      - name: Copy & Rename
+        run: |
+          cp ./macos/xxwcli xxwcli-macos
+          cp ./ubuntu/xxwcli xxwcli-ubuntu
+          cp ./windows/xxwcli.exe xxwcli.exe
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            ./macos/xxwcli
-            ./ubuntu/xxwcli
-            ./windows/xxwcli.exe
+            xxwcli-macos
+            xxwcli-ubuntu
+            xxwcli.exe
           body:
             自动推送时的发布
           # draft: 草稿状态，为 true 时，不创建标签，默认为 false
