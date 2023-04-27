@@ -70,7 +70,7 @@ jobs:
         id: date
         run: |
           # 设置时区：支持 windows
-          tzutil /s "China Standard Time" || true
+          powershell -Command "Set-TimeZone -Id 'China Standard Time'" || true
           # 设置环境变量：支持 ubuntu、macos
           echo "YEAR_MONTH_DAY=$(date +'%Y%m%d')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y%m%d%H')" >> $GITHUB_ENV
