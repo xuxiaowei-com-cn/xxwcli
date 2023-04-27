@@ -6,7 +6,7 @@ name: Push Branches
 on:
   push:
     branches:
-      - main
+      - test
 
 jobs:
 
@@ -79,13 +79,28 @@ jobs:
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
 
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/main')
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-ubuntu-latest
+          path: build
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
-          path: |
-            xxwcli
-            xxwcli.exe
+          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-windows-latest
+          path: build/xxwcli.exe
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-macos-latest
+          path: build/xxwcli
 
       - name: Create Release
         uses: ncipollo/release-action@v1
@@ -99,6 +114,6 @@ jobs:
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
           prerelease: true
-          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
-          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
+          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
           token: ${{ secrets.GITHUB_TOKEN }}
