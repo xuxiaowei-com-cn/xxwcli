@@ -100,24 +100,21 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: xxwcli-ubuntu
-          path:
-            - xxwcli
+          path: xxwcli
 
       # 上传
       - name: Uploaded Artifacts windows
         uses: actions/upload-artifact@v3
         with:
           name: xxwcli-windows
-          path:
-            - xxwcli.exe
+          path: xxwcli.exe
 
       # 上传
       - name: Uploaded Artifacts macos
         uses: actions/upload-artifact@v3
         with:
           name: xxwcli-macos
-          path:
-            - xxwcli
+          path: xxwcli
 
       - name: Create Release
         uses: ncipollo/release-action@v1
