@@ -1,11 +1,12 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: Push Branches
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
 
@@ -92,6 +93,9 @@ jobs:
           artifacts: |
             xxwcli
             xxwcli.exe
+          body:
+            自动推送时的发布
+          draft: true
           prerelease: true
           name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
           tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
