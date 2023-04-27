@@ -75,9 +75,6 @@ jobs:
           echo "YEAR_MONTH_DAY=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dZ")" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dT%HZ")" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date --date="${{ steps.timestamp.outputs.timestamp }}" --utc +"%Y-%m-%dT%H:%MZ")" >> $GITHUB_ENV
-        env:
-          # 设置时区：支持 ubuntu、macos
-          TZ: Asia/Shanghai
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
