@@ -15,7 +15,7 @@ jobs:
       contents: write
     env:
       CACHE_PATH: ~/go/pkg/mod/cache
-
+      OS5: ""
     strategy:
       matrix:
         os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
@@ -64,6 +64,7 @@ jobs:
           echo "os2=${{ steps.replace.outputs.replaced }}" >> $GITHUB_OUTPUT
           echo "os3=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
           echo "export OS4=${{ steps.replace.outputs.replaced }}" >> $GITHUB_ENV
+          echo "OS5=new_value" >> $GITHUB_ENV
 
       - name: Get current date
         id: date
@@ -92,6 +93,6 @@ jobs:
             xxwcli
             xxwcli.exe
           prerelease: true
-          name: ${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ env.OS4 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
-          tag: v-${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ env.OS4 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          name: ${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ env.OS4 }}-${{ env.OS5 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
+          tag: v-${{ steps.os.outputs.os }}-${{ steps.os.outputs.os2 }}-${{ env.os3 }}-${{ env.OS4 }}-${{ env.OS5 }}-${{ steps.date.outputs.year_month_day_hour_minute }}
           token: ${{ secrets.GITHUB_TOKEN }}
