@@ -71,13 +71,15 @@ jobs:
         # bash, sh, cmd, powershell, pwsh
         shell: sh
         run: |
-          now=$(date +%s)
-          echo $now
-          time_plus_8h=$(date -d @$((now+28800)) +"%Y%m%d%H%M")
-          echo $time_plus_8h
-          echo "YEAR_MONTH_DAY=$(date -d @$now +'%Y%m%d')" >> $GITHUB_ENV
-          echo "YEAR_MONTH_DAY_HOUR=$(date -d @$now +'%Y%m%d%H')" >> $GITHUB_ENV
-          echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date -d @$now +'%Y%m%d%H%M')" >> $GITHUB_ENV
+          # 设置环境变量：支持 ubuntu、macos
+          echo "YEAR_MONTH_DAY=$(date +'%Y%m%d')" >> $GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y%m%d%H')" >> $GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV
+          # 设置环境变量：支持 windows
+          echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
+          echo "YEAR_MONTH_DAY=$(date +'%Y%m%d')" >> $env:GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y%m%d%H')" >> $env:GITHUB_ENV
+          echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y%m%d%H%M')" >> $env:GITHUB_ENV
         env:
           # 设置时区：支持 ubuntu、macos
           TZ: Asia/Shanghai
