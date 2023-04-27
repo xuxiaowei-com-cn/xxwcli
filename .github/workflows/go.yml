@@ -66,11 +66,40 @@ jobs:
           # 设置环境变量：支持 windows
           echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
+      - name: Show current time
+        run: |
+          echo "Current time:"
+          echo "${{ env.GITHUB_SERVER_TIMEZONE }}"
+          echo "${{ env.CURRENT_TIME }}"
+          echo "Current time plus 8 hours:"
+          echo "${{ env.TIME_PLUS_8H }}"
+        env:
+          TIME_ZONE: ${{ env.GITHUB_SERVER_TIMEZONE }}
+          CURRENT_TIME: ${{ steps.format_time.outputs.time }}
+          TIME_PLUS_8H: ${{ steps.format_time.outputs.time_plus_8h }}
+
+      - name: Format time
+        id: format_time
+        run: |
+          const moment = require('moment-timezone');
+          const tz = process.env.TIME_ZONE;
+          const timeFormat = 'YYYYMMDDHHmm';
+          const time = moment().tz(tz).format(timeFormat);
+          const time_plus_8h = moment().tz(tz).add(8, 'hours').format(timeFormat);
+          console.log(`CURRENT_TIME=${time}`);
+          console.log(`TIME_PLUS_8H=${time_plus_8h}`);
+        shell: bash
+        env:
+          NODE_VERSION: 14.x
+
+      - name: Set output variables
+        run: |
+          echo "${{ env.CURRENT_TIME }}" >> $GITHUB_ENV
+          echo "${{ env.TIME_PLUS_8H }}" >> $GITHUB_ENV
+
       - name: Get current date
         id: date
         run: |
-          # 设置时区：支持 windows
-          powershell -Command "Set-TimeZone -Id 'China Standard Time'" || true
           # 设置环境变量：支持 ubuntu、macos
           echo "YEAR_MONTH_DAY=$(date +'%Y%m%d')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y%m%d%H')" >> $GITHUB_ENV
