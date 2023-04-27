@@ -67,6 +67,22 @@ jobs:
           # 设置环境变量：支持 windows
           echo "OS=${{ steps.replace.outputs.replaced }}" >> $env:GITHUB_ENV
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: xxwcli-${{ env.OS }}
+          path: |
+            xxwcli
+            xxwcli.exe
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # if: startsWith(github.ref, 'refs/heads/main')
+    steps:
+
       - name: Get current date
         id: date
         # bash, sh, cmd, powershell, pwsh
@@ -79,19 +95,36 @@ jobs:
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Download Artifacts ubuntu
+        uses: actions/download-artifact@v3
         with:
-          name: xxwcli-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
-          path: |
-            xxwcli
-            xxwcli.exe
+          name: xxwcli-ubuntu
+          path: ubuntu
+
+      - name: Download Artifacts windows
+        uses: actions/download-artifact@v3
+        with:
+          name: xxwcli-windows
+          path: windows
+
+      - name: Download Artifacts macos
+        uses: actions/download-artifact@v3
+        with:
+          name: xxwcli-macos
+          path: macos
+
+      - name: Copy & Rename
+        run: |
+          cp ./macos/xxwcli xxwcli-macos
+          cp ./ubuntu/xxwcli xxwcli-ubuntu
+          cp ./windows/xxwcli.exe xxwcli.exe
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            xxwcli
+            xxwcli-macos
+            xxwcli-ubuntu
             xxwcli.exe
           body:
             自动推送时的发布
@@ -99,6 +132,6 @@ jobs:
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
           prerelease: true
-          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
-          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}-${{ env.OS }}
+          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
           token: ${{ secrets.GITHUB_TOKEN }}
