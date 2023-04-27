@@ -119,6 +119,14 @@ jobs:
           cp ./ubuntu/xxwcli xxwcli-ubuntu
           cp ./windows/xxwcli.exe xxwcli.exe
 
+      - name: Replace String Action
+        uses: frabert/replace-string-action@v2
+        id: replace_tags
+        with:
+          pattern: '^refs/tags/'
+          string: ${{ github.ref }}
+          replace-with: ''
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
@@ -132,5 +140,5 @@ jobs:
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
           prerelease: true
-          name: ${{ github.ref }}-${{ env.OS }}
+          name: ${{ steps.replace_tags.outputs.replaced }}
           token: ${{ secrets.GITHUB_TOKEN }}
