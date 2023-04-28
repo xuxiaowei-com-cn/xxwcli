@@ -107,6 +107,12 @@ go build -ldflags "-w -s" xxwcli.go
 go build -ldflags "-X main.buildTime=$(Get-Date -Format yyyy-MM-dd_HH:mm:ss) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) " xxwcli.go
 ```
 
+- Linux
+
+```shell
+go build -ldflags "-X main.buildTime=$(date +%Y-%m-%d_%H:%M:%S) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) " xxwcli.go
+```
+
 ### require
 
 1. [github.com/urfave/cli](https://github.com/urfave/cli)
