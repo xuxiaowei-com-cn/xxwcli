@@ -35,16 +35,17 @@ func main() {
 			ShortName: "v",
 			Usage:     "获取版本信息",
 			Action: func(c *cli.Context) error {
-				fmt.Printf("name %s\n", Name)
-				fmt.Printf("version %s\n", Version)
-				fmt.Printf("author %s\n", Author)
-				fmt.Printf("email %s\n", Email)
-				fmt.Printf("copyright %s\n", Copyright)
-				fmt.Printf("description %s\n", Description)
+				fmt.Printf("name\t\t%s\n", Name)
+				fmt.Printf("version\t\t%s\n", Version)
+				fmt.Printf("author\t\t%s\n", Author)
+				fmt.Printf("email\t\t%s\n", Email)
+				fmt.Printf("copyright\t%s\n", Copyright)
+				fmt.Printf("description\t%s\n", Description)
 
-				fmt.Printf("buildTime %s\n", buildTime)
-				fmt.Printf("commitSha %s\n", commitSha)
-				fmt.Printf("commitShortSha %s\n", commitShortSha)
+				fmt.Printf("buildTime \t%s\n", buildTime)
+				fmt.Printf("commitTimestamp\t%s\n", commitTimestamp)
+				fmt.Printf("commitSha\t%s\n", commitSha)
+				fmt.Printf("commitShortSha\t%s\n", commitShortSha)
 				return nil
 			},
 		},
@@ -63,6 +64,8 @@ func main() {
 var (
 	// buildTime 表示构建时间。
 	buildTime string
+	// 提交时间戳
+	commitTimestamp string
 	// 项目为其构建的提交修订
 	commitSha string
 	// CI_COMMIT_SHA 的前八个字符
@@ -72,6 +75,9 @@ var (
 func init() {
 	if buildTime == "" {
 		buildTime = "unknown"
+	}
+	if commitTimestamp == "" {
+		commitTimestamp = "unknown"
 	}
 	if commitSha == "" {
 		commitSha = "unknown"
