@@ -79,6 +79,10 @@ go get github.com/fatih/color
 go mod download
 ```
 
+```shell
+go mod tidy
+```
+
 ### run
 
 ```shell
