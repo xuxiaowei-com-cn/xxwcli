@@ -134,6 +134,6 @@ jobs:
           # draft: true
           # prerelease：是否发布预发布版，默认为 false
           prerelease: true
-          name: ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
-          tag: v${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          name: 0.0.1-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          tag: v0.0.1-${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
           token: ${{ secrets.GITHUB_TOKEN }}
