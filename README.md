@@ -95,6 +95,18 @@ go run xxwcli.go
 go build xxwcli.go
 ```
 
+```shell
+# -s 表示去掉符号表信息
+# -w 表示去掉 DWARF 调试信息
+go build -ldflags "-w -s" xxwcli.go
+```
+
+- Windows PowerShell
+
+```shell
+go build -ldflags "-X main.buildTime=$(Get-Date -Format yyyy-MM-dd_HH:mm:ss) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) " xxwcli.go
+```
+
 ### require
 
 1. [github.com/urfave/cli](https://github.com/urfave/cli)
