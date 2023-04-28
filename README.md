@@ -2,86 +2,91 @@
 
 ## 脚手架命令
 
-```shell
-D:\GolandProjects\xxwcli>xxwcli.exe -h
-NAME:
-   xxwcli - 命令行工具
+1. 帮助文档
 
-USAGE:
-    [global options] command [command options] [arguments...]
+   ```shell
+   D:\GolandProjects\xxwcli>xxwcli.exe -h
+   NAME:
+      xxwcli - 命令行工具
+   
+   USAGE:
+       [global options] command [command options] [arguments...]
+   
+   VERSION:
+      v0.0.1
+   
+   AUTHOR:
+      xuxiaowei-com-cn/xxwcli: https://github.com/xuxiaowei-com-cn/xxwcli <徐晓伟 <xuxiaowei@xuxiaowei.com.cn>>
+   
+   COMMANDS:
+      version, v  获取版本信息
+      ip          获取当前计算机的 IP 地址
+      port        扫描开放端口
+      httpd       http 代理
+      help, h     Shows a list of commands or help for one command
+   
+   GLOBAL OPTIONS:
+      --help, -h     show help
+      --version, -v  print the version
+   
+   COPYRIGHT:
+      徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>
+   
+   D:\GolandProjects\xxwcli>
+   ```
+2. ip 帮助文档
 
-VERSION:
-   v0.0.1
+   ```shell
+   D:\GolandProjects\xxwcli>xxwcli.exe ip -h
+   NAME:
+       ip - 获取当前计算机的 IP 地址
+   
+   USAGE:
+       ip [command options] [arguments...]
+   
+   OPTIONS:
+      --v4  仅显示 IPv4 地址
+      --v6  仅显示 IPv6 地址
+   
+   
+   D:\GolandProjects\xxwcli>
+   ```
+3. port 帮助文档
 
-AUTHOR:
-   xuxiaowei-com-cn/xxwcli: https://github.com/xuxiaowei-com-cn/xxwcli <徐晓伟 <xuxiaowei@xuxiaowei.com.cn>>
+   ```shell
+   D:\GolandProjects\xxwcli>xxwcli.exe port -h
+   NAME:
+       port - 扫描开放端口
+   
+   USAGE:
+       port [command options] [arguments...]
+   
+   OPTIONS:
+      --host value       扫描主机地址 (default: "127.0.0.1")
+      --startPort value  开始端口 (default: 1)
+      --endPort value    结束端口 (default: 65535)
+   
+   
+   D:\GolandProjects\xxwcli>
+   ```
+4. httpd 帮助文档
 
-COMMANDS:
-   version, v  获取版本信息
-   ip          获取当前计算机的 IP 地址
-   port        扫描开放端口
-   httpd       http 代理
-   help, h     Shows a list of commands or help for one command
-
-GLOBAL OPTIONS:
-   --help, -h     show help
-   --version, -v  print the version
-
-COPYRIGHT:
-   徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>
-
-D:\GolandProjects\xxwcli>
-```
-
-```shell
-D:\GolandProjects\xxwcli>xxwcli.exe ip -h
-NAME:
-    ip - 获取当前计算机的 IP 地址
-
-USAGE:
-    ip [command options] [arguments...]
-
-OPTIONS:
-   --v4  仅显示 IPv4 地址
-   --v6  仅显示 IPv6 地址
-
-
-D:\GolandProjects\xxwcli>
-```
-
-```shell
-D:\GolandProjects\xxwcli>xxwcli.exe port -h
-NAME:
-    port - 扫描开放端口
-
-USAGE:
-    port [command options] [arguments...]
-
-OPTIONS:
-   --host value       扫描主机地址 (default: "127.0.0.1")
-   --startPort value  开始端口 (default: 1)
-   --endPort value    结束端口 (default: 65535)
-
-
-D:\GolandProjects\xxwcli>
-```
-
-```shell
-D:\GolandProjects\xxwcli>xxwcli.exe httpd -h
-NAME:
-    httpd - http 代理
-
-USAGE:
-    httpd [command options] [arguments...]
-
-OPTIONS:
-   --path value  指定提供代理的文件夹 (default: ".")
-   --dir         代理目录
-   --port value  指定代理服务的端口 (default: 8080)
-
-
-D:\GolandProjects\xxwcli>
-```
+   ```shell
+   D:\GolandProjects\xxwcli>xxwcli.exe httpd -h
+   NAME:
+       httpd - http 代理
+   
+   USAGE:
+       httpd [command options] [arguments...]
+   
+   OPTIONS:
+      --path value  指定提供代理的文件夹 (default: ".")
+      --dir         代理目录
+      --port value  指定代理服务的端口 (default: 8080)
+   
+   
+   D:\GolandProjects\xxwcli>
+   ```
 
 ## 开发命令
 
