@@ -104,13 +104,13 @@ go build -ldflags "-w -s" xxwcli.go
 - Windows PowerShell
 
 ```shell
-go build -ldflags "-X main.buildTime=$(Get-Date -Format yyyy-MM-dd_HH:mm:ss) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S")" xxwcli.go
+go build -ldflags "-X main.buildTime=$(Get-Date -Format yyyy-MM-dd_HH:mm:ss%z) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S%z")" xxwcli.go
 ```
 
 - Linux
 
 ```shell
-go build -ldflags "-X main.buildTime=$(date +%Y-%m-%d_%H:%M:%S) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S")" xxwcli.go
+go build -ldflags "-X main.buildTime=$(date +%Y-%m-%d_%H:%M:%S%z) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S%z")" xxwcli.go
 ```
 
 ### require
