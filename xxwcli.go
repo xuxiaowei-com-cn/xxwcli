@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"github.com/xuxiaowei-com-cn/xxwcli/ip"
+	"github.com/xuxiaowei-com-cn/xxwcli/port"
 	"github.com/xuxiaowei-com-cn/xxwcli/web"
 	"os"
 
@@ -50,6 +51,7 @@ func main() {
 			},
 		},
 		ip.GetIPCommand(),
+		port.GetPortCommand(),
 		web.GetHttpdCommand(),
 	}
 
