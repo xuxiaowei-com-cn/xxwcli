@@ -53,6 +53,15 @@ func main() {
 		ip.GetIPCommand(),
 		port.GetPortCommand(),
 		web.GetHttpdCommand(),
+		{
+			Name:      "cli",
+			ShortName: "c",
+			Usage:     "命令行模式",
+			Action: func(c *cli.Context) error {
+				cliMode()
+				return nil
+			},
+		},
 	}
 
 	err := app.Run(os.Args)
@@ -60,6 +69,21 @@ func main() {
 		red := color.New(color.FgRed).SprintFunc()
 		fmt.Println(red(err))
 		os.Exit(1)
+	}
+}
+
+func cliMode() {
+	for {
+		var input string
+		fmt.Print("> ")
+		_, err := fmt.Scanln(&input)
+		if err != nil {
+			return
+		}
+		if input == "exit" || input == "quit" {
+			return
+		}
+		fmt.Printf("you entered: %s\n", input)
 	}
 }
 
