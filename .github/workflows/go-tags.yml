@@ -48,7 +48,9 @@ jobs:
         run: |
           go version
           go mod download
-          go build xxwcli.go
+          go build -ldflags "-X main.buildTime=$(date +%Y-%m-%d_%H:%M:%S%z) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S%z")" xxwcli.go ||           go build -ldflags "-X main.buildTime=$(Get-Date -Format yyyy-MM-dd_HH:mm:ss%z) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S%z")" xxwcli.go
+          ./xxwcli -v || ./xxwcli.exe -v
+          ./xxwcli v || ./xxwcli.exe v
           ls
 
       - name: Replace String Action
