@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-// GenerateRSAKeyPair 生成 RSA 秘钥文件
+// GenerateRSAKeyPair 生成 RSA 秘钥对文件
 func GenerateRSAKeyPair(keyLength int, privateKeyPath string, publicKeyPath string) error {
 	// 生成密钥对，大小为 keyLength 比特
 	privateKey, err := rsa.GenerateKey(rand.Reader, keyLength)
@@ -32,6 +32,11 @@ func GenerateRSAKeyPair(keyLength int, privateKeyPath string, publicKeyPath stri
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(privateKey),
 	}
+
+	// 打印私钥
+	fmt.Println("生成的 RSA 私钥如下：")
+	fmt.Println(string(pem.EncodeToMemory(privateKeyPEM)))
+
 	err = pem.Encode(privateKeyFile, privateKeyPEM)
 	if err != nil {
 		return err
@@ -57,6 +62,11 @@ func GenerateRSAKeyPair(keyLength int, privateKeyPath string, publicKeyPath stri
 		Type:  "PUBLIC KEY",
 		Bytes: publicKeyPEM,
 	}
+
+	// 打印公钥
+	fmt.Println("生成的 RSA 公钥如下：")
+	fmt.Println(string(pem.EncodeToMemory(publicKeyPEMBlock)))
+
 	err = pem.Encode(publicKeyFile, publicKeyPEMBlock)
 	if err != nil {
 		return err
