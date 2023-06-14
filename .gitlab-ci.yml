@@ -1,5 +1,6 @@
 stages:
   - build
+  - sync
 
 build:1.20:
   stage: build
@@ -53,3 +54,8 @@ build:1.20:
 #    - windows
 #  rules:
 #    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'jihulab.com'
+
+# 嵌入
+include:
+  # 同步代码
+  - /sync.yml
