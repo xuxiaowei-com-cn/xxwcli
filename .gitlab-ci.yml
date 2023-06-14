@@ -1,5 +1,6 @@
 stages:
   - build
+  - sync
 
 build:1.20:
   stage: build
