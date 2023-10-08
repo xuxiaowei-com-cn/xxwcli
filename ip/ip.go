@@ -3,14 +3,14 @@ package ip
 import (
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"net"
 	"os"
 )
 
 // GetIPCommand 返回获取 IP 地址的 CLI 命令
-func GetIPCommand() cli.Command {
-	return cli.Command{
+func GetIPCommand() *cli.Command {
+	return &cli.Command{
 		Name:  "ip",
 		Usage: "获取当前计算机的 IP 地址",
 		Flags: []cli.Flag{

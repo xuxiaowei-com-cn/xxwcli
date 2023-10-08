@@ -3,27 +3,27 @@ package web
 import (
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"net/http"
 	"os"
 )
 
 // GetHttpdCommand 返回 httpd 代理的 CLI 命令
-func GetHttpdCommand() cli.Command {
-	return cli.Command{
+func GetHttpdCommand() *cli.Command {
+	return &cli.Command{
 		Name:  "httpd",
 		Usage: "http 代理",
 		Flags: []cli.Flag{
-			cli.StringFlag{
+			&cli.StringFlag{
 				Name:  "path",
 				Value: ".",
 				Usage: "指定提供代理的文件夹",
 			},
-			cli.BoolFlag{
+			&cli.BoolFlag{
 				Name:  "dir",
 				Usage: "代理目录",
 			},
-			cli.IntFlag{
+			&cli.IntFlag{
 				Name:  "port",
 				Value: 8080,
 				Usage: "指定代理服务的端口",

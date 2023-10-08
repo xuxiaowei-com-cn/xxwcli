@@ -2,15 +2,15 @@ package port
 
 import (
 	"fmt"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"net"
 	"sync"
 	"time"
 )
 
 // GetPortCommand 返回扫描开放端口的 CLI 命令
-func GetPortCommand() cli.Command {
-	return cli.Command{
+func GetPortCommand() *cli.Command {
+	return &cli.Command{
 		Name:  "port",
 		Usage: "扫描开放端口",
 		Flags: []cli.Flag{

@@ -8,16 +8,16 @@ import (
 	"github.com/xuxiaowei-com-cn/xxwcli/web"
 	"os"
 
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 )
 
 var (
 	Name        = "xxwcli"
 	Version     = "v0.0.1"
-	Author      = "xuxiaowei-com-cn/xxwcli: https://github.com/xuxiaowei-com-cn/xxwcli"
-	Email       = "徐晓伟 <xuxiaowei@xuxiaowei.com.cn>"
+	Author      = "徐晓伟"
+	Email       = "xuxiaowei@xuxiaowei.com.cn"
 	Copyright   = "徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>"
-	Description = "命令行工具"
+	Description = "命令行工具 https://github.com/xuxiaowei-com-cn/xxwcli"
 )
 
 func main() {
@@ -25,16 +25,15 @@ func main() {
 
 	app.Name = Name
 	app.Version = Version
-	app.Author = Author
-	app.Email = Email
+	app.Authors = []*cli.Author{{Name: Author, Email: Email}}
 	app.Usage = Description
 	app.Copyright = Copyright
 
-	app.Commands = []cli.Command{
+	app.Commands = []*cli.Command{
 		{
-			Name:      "version",
-			ShortName: "v",
-			Usage:     "获取版本信息",
+			Name:    "version",
+			Aliases: []string{"v"},
+			Usage:   "获取版本信息",
 			Action: func(c *cli.Context) error {
 				fmt.Printf("name\t\t%s\n", Name)
 				fmt.Printf("version\t\t%s\n", Version)

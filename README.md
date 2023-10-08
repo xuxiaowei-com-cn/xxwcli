@@ -7,16 +7,16 @@
    ```shell
    D:\GolandProjects\xxwcli>xxwcli.exe -h
    NAME:
-      xxwcli - 命令行工具
+      xxwcli - 命令行工具 https://github.com/xuxiaowei-com-cn/xxwcli
    
    USAGE:
-       [global options] command [command options] [arguments...]
+      xxwcli [global options] command [command options] [arguments...]
    
    VERSION:
       v0.0.1
    
    AUTHOR:
-      xuxiaowei-com-cn/xxwcli: https://github.com/xuxiaowei-com-cn/xxwcli <徐晓伟 <xuxiaowei@xuxiaowei.com.cn>>
+      徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
    
    COMMANDS:
       version, v  获取版本信息
@@ -93,8 +93,8 @@
 ### get
 
 ```shell
-go get github.com/urfave/cli
-go get github.com/fatih/color
+go get -u github.com/urfave/cli/v2
+go get -u github.com/fatih/color
 ```
 
 ### mod
