@@ -45,26 +45,36 @@ func GetPortCommand() *cli.Command {
 			var wg sync.WaitGroup
 
 			// 遍历端口范围，并依次创建 goroutine 进行连接尝试
-			for port := startPort; port <= endPort; port++ {
+			for port := startPort; port < endPort; port++ {
 				wg.Add(1)
-				go func(port int) {
-					defer wg.Done()
-					address := fmt.Sprintf("%s:%d", host, port)
-					conn, err := net.DialTimeout("tcp", address, 2*time.Second)
-					if err == nil {
-						fmt.Printf("%d\n", port)
-						err := conn.Close()
-						if err != nil {
-							return
-						}
-					}
-				}(port)
+				go task(host, port, &wg)
+
+				// 判断是否达到最大并发数量，如果达到则等待一段时间
+				if (port+1)%endPort == 0 {
+					fmt.Println("Waiting for Goroutines to finish...")
+					time.Sleep(time.Second)
+				}
 			}
 
 			// 等待所有 goroutine 执行完毕
 			wg.Wait()
 
+			fmt.Println("All Goroutines Done!")
+
 			return nil
 		},
+	}
+}
+
+func task(host string, port int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	address := fmt.Sprintf("%s:%d", host, port)
+	conn, err := net.DialTimeout("tcp", address, 2*time.Second)
+	if err == nil {
+		fmt.Printf("%d\n", port)
+		err := conn.Close()
+		if err != nil {
+			return
+		}
 	}
 }
