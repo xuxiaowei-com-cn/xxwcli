@@ -33,3 +33,7 @@ build/
 .vscode/
 
 /*.exe
+/*/*.exe
+/xxwcli-*
+
+/buildinfo/buildinfo

@@ -2,59 +2,61 @@ stages:
   - build
   - sync
 
-build:1.21:
+build:golang:1.21:
   stage: build
   image: golang:1.21
+  variables:
+    CGO_ENABLED: 0
   script:
+    - echo $CI_PIPELINE_ID
+    - echo $CI_JOB_ID
     - go version
     - go env -w GOPROXY=https://goproxy.cn,direct
+    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
     - go mod download
     - go test ./... -v
-    - go build -ldflags "-X main.buildTime=$(date +%Y-%m-%d_%H:%M:%S%z) -X main.commitSha=$(git rev-parse HEAD) -X main.commitShortSha=$(git rev-parse --short HEAD) -X main.commitTimestamp=$(git log -1 --format="%cd" --date="format:%Y-%m-%d_%H:%M:%S%z")" xxwcli.go
-    - ls
-    - ./xxwcli -v
-    - ./xxwcli v
+    - go run main.go
+    - go build -o buildinfo/tmp main.go
+    - GOOS=windows GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/amd64 -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-windows-amd64.exe .
+    - GOOS=windows GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=windows/arm64 -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-windows-arm64.exe .
+    - GOOS=linux   GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/amd64   -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-linux-amd64 .
+    - GOOS=linux   GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/arm64   -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-linux-arm64 .
+    - GOOS=darwin  GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/amd64  -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-darwin-amd64 .
+    - GOOS=darwin  GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$(buildinfo/tmp commitSha) -X main.GitCommitShortSha=$(buildinfo/tmp commitShortSha) -X main.GitCommitTag=$(buildinfo/tmp commitTag) -X main.GitCommitTimestamp=$(buildinfo/tmp commitTimestamp) -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/arm64  -X main.InstanceUrl=$CI_SERVER_URL -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-darwin-arm64 .
+    - ./xxwcli-linux-amd64 --version
+    - ./xxwcli-linux-amd64
   artifacts:
     name: "${CI_JOB_NAME}"
+    expire_in: 3 day
     paths:
-      - xxwcli
-  only:
-    - main
+      - xxwcli-windows-*
+      - xxwcli-linux-*
+      - xxwcli-darwin-*
 
-#build:latest:macos:
-#  stage: build
-#  image: golang:latest
-#  script:
-#    - go version
-#    - go env -w GOPROXY=https://goproxy.cn,direct
-#    - go mod download
-#    - go build xxwcli.go
-#    - ls
-#  artifacts:
-#    name: "${CI_JOB_NAME}"
-#    paths:
-#      - xxwcli.out
-#  tags:
-#    - shared-macos-amd64
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'jihulab.com'
-
-#build:1.19.5-windowsservercore:
-#  stage: build
-#  image: golang:1.19.5-windowsservercore
-#  script:
-#    - go version
-#    - go env -w GOPROXY=https://goproxy.cn,direct
-#    - go mod download
-#    - go build xxwcli.go
-#  artifacts:
-#    name: "${CI_JOB_NAME}"
-#    paths:
-#      - xxwcli.exe
-#  tags:
-#    - windows
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == "main" && $CI_SERVER_HOST != 'jihulab.com'
+build:golang:1.21-alpine3.18:
+  stage: build
+  image: golang:1.21-alpine3.18
+  variables:
+    CGO_ENABLED: 0
+  script:
+    - echo $CI_PIPELINE_ID
+    - echo $CI_JOB_ID
+    - go version
+    - go env -w GOPROXY=https://goproxy.cn,direct
+    #- go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
+    - go mod download
+    - go test ./... -v
+    - go run main.go
+    - go build -o buildinfo/tmp main.go
+    - GOOS=linux GOARCH=amd64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$CI_COMMIT_SHA -X main.GitCommitShortSha=$CI_COMMIT_SHORT_SHA -X main.GitCommitTag=$CI_COMMIT_TAG -X main.GitCommitTimestamp=$CI_COMMIT_TIMESTAMP -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/alpine/amd64 -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-linux-alpine-amd64 .
+    - GOOS=linux GOARCH=arm64 go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/tmp now) -X main.Compiler= -X main.GitCommitBranch=$CI_COMMIT_BRANCH -X main.GitCommitSha=$CI_COMMIT_SHA -X main.GitCommitShortSha=$CI_COMMIT_SHORT_SHA -X main.GitCommitTag=$CI_COMMIT_TAG -X main.GitCommitTimestamp=$CI_COMMIT_TIMESTAMP -X main.GitTreeState=$(buildinfo/tmp git-tree-state) -X main.GitVersion=$(buildinfo/tmp commitTag) -X main.GoVersion=$(buildinfo/tmp goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=linux/alpine/arm64 -X main.CiPipelineId=$CI_PIPELINE_ID -X main.CiJobId=$CI_JOB_ID" -trimpath -o xxwcli-linux-alpine-arm64 .
+    - ./xxwcli-linux-alpine-amd64 --version
+    - ./xxwcli-linux-alpine-amd64
+  artifacts:
+    name: "${CI_JOB_NAME}"
+    expire_in: 3 day
+    paths:
+      - xxwcli-linux-*
 
 # 嵌入
 include:
