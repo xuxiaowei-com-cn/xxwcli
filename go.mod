@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/fatih/color v1.16.0
-	github.com/urfave/cli/v2 v2.25.7
+	github.com/urfave/cli/v2 v2.27.1
 	github.com/xuxiaowei-com-cn/git-go v0.0.0-20231127015559-635f5e3143dc
 	gopkg.in/yaml.v3 v3.0.1
 )
